@@ -12,6 +12,9 @@ const Menu = () => {
     const handleMenuClick = (option) => {
         dispatch(menuItemClick(option));
     }
+    const handleActionItemClick = (option) =>{
+        dispatch(actionItemClick(option));
+    }
     return (
         <div className={styles.menuContainer}>
             <div className={cx(styles.menuItem, { [styles.active]: activeMenuItem === MENU_ITEMS.PENCIL })} onClick={() => handleMenuClick(MENU_ITEMS.PENCIL)}>
@@ -20,13 +23,13 @@ const Menu = () => {
             <div className={cx(styles.menuItem, { [styles.active]: activeMenuItem === MENU_ITEMS.ERASER })} onClick={() => handleMenuClick(MENU_ITEMS.ERASER)}>
                 <FontAwesomeIcon icon={faEraser} />
             </div>
-            <div className={styles.menuItem}>
+            <div className={styles.menuItem} onClick={()=> handleActionItemClick(MENU_ITEMS.UNDO)}>
                 <FontAwesomeIcon icon={faRotateLeft} />
             </div>
-            <div className={styles.menuItem}>
+            <div className={styles.menuItem} onClick={()=> handleActionItemClick(MENU_ITEMS.REDO)}>
                 <FontAwesomeIcon icon={faRotateRight} />
             </div>
-            <div className={styles.menuItem}>
+            <div className={styles.menuItem} onClick={()=> handleActionItemClick(MENU_ITEMS.DOWNLOAD)}>
                 <FontAwesomeIcon icon={faFileArrowDown} />
             </div>
         </div >
