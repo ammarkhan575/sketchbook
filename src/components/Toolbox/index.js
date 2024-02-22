@@ -9,7 +9,7 @@ const Toolbox = () => {
     const dispatch = useDispatch();
     const showStrokeToolOption = activeMenuItem === MENU_ITEMS.PENCIL;
     const showBrushToolOption = activeMenuItem === MENU_ITEMS.PENCIL || MENU_ITEMS.ERASER;
-    const { color } = useSelector((state) => state.toolbox[activeMenuItem])
+    const { color, size } = useSelector((state) => state.toolbox[activeMenuItem])
 
     const updateBrushSize = (e) => {
         dispatch(changeBrushSize({ item: activeMenuItem, size: e.target.value }));
@@ -39,7 +39,7 @@ const Toolbox = () => {
                 <div className={styles.toolItem}>
                     <h4 className={styles.toolText}>Brush Size</h4>
                     <div>
-                        <input type="range" min={1} max={10} step={1} name="Brushsize" onChange={updateBrushSize} />
+                        <input type="range" min={1} max={10} step={1} value={size} name="Brushsize" onChange={updateBrushSize} />
                     </div>
                 </div>
             }
