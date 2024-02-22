@@ -18,7 +18,7 @@
 
                 &:hover,
                 &.active {
-                    @apply border border-gray-500
+                    @apply border-2 border-gray-500
                 }
             }
         }
