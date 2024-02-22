@@ -1,0 +1,13 @@
+.menuContainer {
+    @apply absolute flex border rounded-md shadow-xl bg-transparent border-gray-200 justify-between w-1/5 min-w-[200px] bg-gray-100 left-1/2 top-10 p-3;
+    transform: translateX(-50%);
+
+    .menuItem {
+        @apply px-3 py-2 rounded-md cursor-pointer;
+
+        &:hover,
+        &.active {
+            @apply bg-slate-200
+        }
+    }
+}

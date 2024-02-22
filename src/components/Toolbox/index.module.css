@@ -1,0 +1,27 @@
+.toolContainer {
+    @apply absolute border rounded-md shadow-xl bg-transparent border-gray-200 justify-between w-64 p-5 top-32 left-4 bg-gray-100;
+    transform: translateY(50%);
+
+    .toolItem {
+        @apply mb-5;
+
+        .toolText {
+            font-size: 11px;
+            color: gray
+        }
+
+        .itemContainer {
+            @apply flex justify-between mt-2;
+
+            .colorBox {
+                @apply w-5 h-5 mr-1 rounded-sm cursor-pointer;
+
+                &:hover,
+                &.active {
+                    @apply border border-gray-500
+                }
+            }
+        }
+    }
+
+}
