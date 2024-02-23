@@ -27,6 +27,7 @@ const Board = () => {
             if (historyPointer.current > 0 && actionMenuItem === MENU_ITEMS.UNDO) historyPointer.current -= 1;
             if (historyPointer.current < drawHistory.current.length - 1 && actionMenuItem === MENU_ITEMS.REDO) historyPointer.current += 1;
             const imageData = drawHistory.current[historyPointer.current];
+            console.log(imageData);
             ctx.putImageData(imageData, 0, 0);
         }
         dispatch(actionItemClick(null));
@@ -57,12 +58,13 @@ const Board = () => {
             shouldDraw.current = true;
             const startX = e.clientX;
             const startY = e.clientY;
-            if (activeMenuItem === MENU_ITEMS.PENCIL) {
-                beginPath(startX, startY);
-                console.log('pencil mouse down');
-            } else if (activeMenuItem === MENU_ITEMS.RECTANGLE) {
+            if (activeMenuItem === MENU_ITEMS.RECTANGLE) {
                 // Store the initial coordinates of the rectangle
                 shouldDraw.current = { startX, startY };
+            }
+            else if (activeMenuItem === MENU_ITEMS.PENCIL) {
+                beginPath(startX, startY);
+                console.log('pencil mouse down');
             }
         }
         const handleMouseMove = (e) => {
@@ -70,12 +72,7 @@ const Board = () => {
             const x = e.clientX;
             const y = e.clientY;
             if (activeMenuItem === MENU_ITEMS.PENCIL) drawLine(x, y);
-            // else if (activeMenuItem === MENU_ITEMS.RECTANGLE) {
-            //     const { startX, startY } = shouldDraw.current;
-            //     drawRect(startX, startY, x, y);
-            //     console.log('rectangle mouse move');
-            //     console.log(x, y);
-            // }
+            else if(activeMenuItem === MENU_ITEMS.ERASER) drawLine(x,y);
         }
         const handleMouseUp = (e) => {
 

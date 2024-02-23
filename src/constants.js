@@ -10,11 +10,11 @@ const COLORS = {
 
 const MENU_ITEMS = {
     PENCIL: 'PENCIL',
+    RECTANGLE: 'RECTANGLE',
     ERASER: 'ERASER',
     UNDO: 'UNDO',
     REDO: 'REDO',
     DOWNLOAD: 'DOWNLOAD',
-    RECTANGLE: 'RECTANGLE'
 }
 
 
