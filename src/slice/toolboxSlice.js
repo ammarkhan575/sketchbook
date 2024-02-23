@@ -6,13 +6,17 @@ const initialState = {
         color: COLORS.BLACK,
         size: 3
     },
+    [MENU_ITEMS.RECTANGLE]:{
+        color: COLORS.BLACK,
+        size: 3
+    },
     [MENU_ITEMS.ERASER]: {
         color: COLORS.WHITE,
         size: 3
     },
     [MENU_ITEMS.UNDO]: {},
     [MENU_ITEMS.REDO]: {},
-    [MENU_ITEMS.DOWNLOAD]: {},
+    [MENU_ITEMS.DOWNLOAD]: {}
 }
 
 export const toolboxSlice = createSlice({
@@ -24,7 +28,7 @@ export const toolboxSlice = createSlice({
         },
         changeBrushSize: (state, action) => {
             state[action.payload.item].size = action.payload.size;
-        }
+        },
     }
 })
 

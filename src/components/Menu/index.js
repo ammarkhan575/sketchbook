@@ -12,7 +12,7 @@ const Menu = () => {
     const handleMenuClick = (option) => {
         dispatch(menuItemClick(option));
     }
-    const handleActionItemClick = (option) =>{
+    const handleActionItemClick = (option) => {
         dispatch(actionItemClick(option));
     }
     return (
@@ -20,16 +20,19 @@ const Menu = () => {
             <div className={cx(styles.menuItem, { [styles.active]: activeMenuItem === MENU_ITEMS.PENCIL })} onClick={() => handleMenuClick(MENU_ITEMS.PENCIL)}>
                 <FontAwesomeIcon icon={faPencil} />
             </div>
+            <div className={cx(styles.menuItem, { [styles.active]: activeMenuItem === MENU_ITEMS.RECTANGLE })} onClick={() => handleMenuClick(MENU_ITEMS.RECTANGLE)}>
+                <div className='w-5 h-3 bg-white border border-black'></div>
+            </div>
             <div className={cx(styles.menuItem, { [styles.active]: activeMenuItem === MENU_ITEMS.ERASER })} onClick={() => handleMenuClick(MENU_ITEMS.ERASER)}>
                 <FontAwesomeIcon icon={faEraser} />
             </div>
-            <div className={styles.menuItem} onClick={()=> handleActionItemClick(MENU_ITEMS.UNDO)}>
+            <div className={styles.menuItem} onClick={() => handleActionItemClick(MENU_ITEMS.UNDO)}>
                 <FontAwesomeIcon icon={faRotateLeft} />
             </div>
-            <div className={styles.menuItem} onClick={()=> handleActionItemClick(MENU_ITEMS.REDO)}>
+            <div className={styles.menuItem} onClick={() => handleActionItemClick(MENU_ITEMS.REDO)}>
                 <FontAwesomeIcon icon={faRotateRight} />
             </div>
-            <div className={styles.menuItem} onClick={()=> handleActionItemClick(MENU_ITEMS.DOWNLOAD)}>
+            <div className={styles.menuItem} onClick={() => handleActionItemClick(MENU_ITEMS.DOWNLOAD)}>
                 <FontAwesomeIcon icon={faFileArrowDown} />
             </div>
         </div >

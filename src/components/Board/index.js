@@ -25,19 +25,20 @@ const Board = () => {
         }
         else if (actionMenuItem === MENU_ITEMS.UNDO || actionMenuItem === MENU_ITEMS.REDO) {
             if (historyPointer.current > 0 && actionMenuItem === MENU_ITEMS.UNDO) historyPointer.current -= 1;
-            if (historyPointer.current < drawHistory.current.length-1 && actionMenuItem === MENU_ITEMS.REDO) historyPointer.current += 1;
+            if (historyPointer.current < drawHistory.current.length - 1 && actionMenuItem === MENU_ITEMS.REDO) historyPointer.current += 1;
             const imageData = drawHistory.current[historyPointer.current];
             ctx.putImageData(imageData, 0, 0);
-
         }
         dispatch(actionItemClick(null));
     }, [actionMenuItem, dispatch])
+
     useEffect(() => {
         if (!canvasRef.current) return;
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         const changeConfig = () => {
             ctx.strokeStyle = color;
+            ctx.fillStyle = color; // Set fill color for rectangles
             ctx.lineWidth = size;
         }
         const beginPath = (x, y) => {
@@ -48,23 +49,48 @@ const Board = () => {
             ctx.lineTo(x, y);
             ctx.stroke();
         }
+        const drawRect = (x1, y1, x2, y2) => {
+            // ctx.fillRect(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x2 - x1), Math.abs(y2 - y1));
+            ctx.strokeRect(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x2 - x1), Math.abs(y2 - y1));
+        }
         const handleMouseDown = (e) => {
             shouldDraw.current = true;
-            const x = e.clientX;
-            const y = e.clientY;
-            beginPath(x, y);
+            const startX = e.clientX;
+            const startY = e.clientY;
+            if (activeMenuItem === MENU_ITEMS.PENCIL) {
+                beginPath(startX, startY);
+                console.log('pencil mouse down');
+            } else if (activeMenuItem === MENU_ITEMS.RECTANGLE) {
+                // Store the initial coordinates of the rectangle
+                shouldDraw.current = { startX, startY };
+            }
         }
         const handleMouseMove = (e) => {
             if (!shouldDraw.current) return;
             const x = e.clientX;
             const y = e.clientY;
-            drawLine(x, y);
+            if (activeMenuItem === MENU_ITEMS.PENCIL) drawLine(x, y);
+            // else if (activeMenuItem === MENU_ITEMS.RECTANGLE) {
+            //     const { startX, startY } = shouldDraw.current;
+            //     drawRect(startX, startY, x, y);
+            //     console.log('rectangle mouse move');
+            //     console.log(x, y);
+            // }
         }
         const handleMouseUp = (e) => {
-            shouldDraw.current = false;
+
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-            drawHistory.push(imageData);
+            drawHistory.current.push(imageData);
             historyPointer.current = drawHistory.current.length - 1;
+            if (activeMenuItem === MENU_ITEMS.RECTANGLE) {
+                const x = e.clientX;
+                const y = e.clientY;
+                const { startX, startY } = shouldDraw.current;
+                drawRect(startX, startY, x, y);
+                console.log('rectangle mouse move');
+                console.log(x, y);
+            }
+            shouldDraw.current = false;
         }
         canvas.addEventListener('mousedown', handleMouseDown);
         canvas.addEventListener('mousemove', handleMouseMove);
@@ -77,12 +103,11 @@ const Board = () => {
             canvas.removeEventListener('mousemove', handleMouseMove);
             canvas.removeEventListener('mouseup', handleMouseUp);
         }
-    }, [color, size])
+    }, [color, size, activeMenuItem])
 
     useEffect(() => {
         if (!canvasRef.current) return;
         const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     }, []);
