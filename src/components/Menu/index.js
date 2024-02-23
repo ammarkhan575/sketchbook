@@ -23,6 +23,12 @@ const Menu = () => {
             <div className={cx(styles.menuItem, { [styles.active]: activeMenuItem === MENU_ITEMS.RECTANGLE })} onClick={() => handleMenuClick(MENU_ITEMS.RECTANGLE)}>
                 <div className='w-5 h-3 bg-white border border-black'></div>
             </div>
+            <div className={cx(styles.menuItem, { [styles.active]: activeMenuItem === MENU_ITEMS.CIRCLE })} onClick={() => handleMenuClick(MENU_ITEMS.CIRCLE)}>
+                <div className='w-5 h-5 bg-white border rounded-full border-black'></div>
+            </div>
+            <div className={cx(styles.menuItem, { [styles.active]: activeMenuItem === MENU_ITEMS.LINE })} onClick={() => handleMenuClick(MENU_ITEMS.LINE)}>
+                <div className='w-5 h-[1px] bg-white border -rotate-45 rounded-full border-black'></div>
+            </div>
             <div className={cx(styles.menuItem, { [styles.active]: activeMenuItem === MENU_ITEMS.ERASER })} onClick={() => handleMenuClick(MENU_ITEMS.ERASER)}>
                 <FontAwesomeIcon icon={faEraser} />
             </div>

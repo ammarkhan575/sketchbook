@@ -15,6 +15,7 @@ const MENU_ITEMS = {
     UNDO: 'UNDO',
     REDO: 'REDO',
     DOWNLOAD: 'DOWNLOAD',
+    CIRCLE: 'CIRCLE'
 }
 
 

@@ -54,6 +54,12 @@ const Board = () => {
             // ctx.fillRect(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x2 - x1), Math.abs(y2 - y1));
             ctx.strokeRect(Math.min(x1, x2), Math.min(y1, y2), Math.abs(x2 - x1), Math.abs(y2 - y1));
         }
+        const drawCircle = (x1, y1, x2, y2) => {
+            const radius = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            ctx.beginPath();
+            ctx.arc(x1, y1, radius, 0, 2 * Math.PI);
+            ctx.stroke();
+        }
         const handleMouseDown = (e) => {
             shouldDraw.current = true;
             const startX = e.clientX;
@@ -66,13 +72,20 @@ const Board = () => {
                 beginPath(startX, startY);
                 console.log('pencil mouse down');
             }
+            else if (activeMenuItem === MENU_ITEMS.CIRCLE) {
+                shouldDraw.current = { startX, startY };
+            }
+            else if(activeMenuItem === MENU_ITEMS.LINE){
+                shouldDraw.current = {startX, startY};
+                beginPath(startX,startY);
+            }
         }
         const handleMouseMove = (e) => {
             if (!shouldDraw.current) return;
             const x = e.clientX;
             const y = e.clientY;
             if (activeMenuItem === MENU_ITEMS.PENCIL) drawLine(x, y);
-            else if(activeMenuItem === MENU_ITEMS.ERASER) drawLine(x,y);
+            else if (activeMenuItem === MENU_ITEMS.ERASER) drawLine(x, y);
         }
         const handleMouseUp = (e) => {
 
@@ -86,6 +99,17 @@ const Board = () => {
                 drawRect(startX, startY, x, y);
                 console.log('rectangle mouse move');
                 console.log(x, y);
+            }
+            else if (activeMenuItem === MENU_ITEMS.CIRCLE) {
+                const x = e.clientX;
+                const y = e.clientY;
+                const { startX, startY } = shouldDraw.current;
+                drawCircle(startX, startY, x, y);
+            }
+            else if(activeMenuItem === MENU_ITEMS.LINE){
+                const x = e.clientX;
+                const y = e.clientY;
+                drawLine(x,y);
             }
             shouldDraw.current = false;
         }

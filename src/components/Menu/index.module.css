@@ -1,5 +1,5 @@
 .menuContainer {
-    @apply absolute flex border rounded-md shadow-xl bg-transparent border-gray-200 justify-between w-1/5 min-w-[200px] bg-gray-100 left-1/2 top-10 p-3;
+    @apply absolute flex border rounded-md shadow-xl bg-transparent border-gray-200 justify-between min-w-[300px] bg-gray-100 left-1/2 top-2 p-3 gap-2;
     transform: translateX(-50%);
 
     .menuItem {
